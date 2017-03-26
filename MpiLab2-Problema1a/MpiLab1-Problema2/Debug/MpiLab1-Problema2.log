@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\tolgoi\documents\visual studio 2015\projects\mpilab1-problema2\mpilab1-problema2\main.cpp(19): warning C4101: 'status': unreferenced local variable
+c:\users\tolgoi\documents\visual studio 2015\projects\mpilab1-problema2\mpilab1-problema2\main.cpp(20): warning C4101: 'hostname': unreferenced local variable
+  MpiLab1-Problema2.vcxproj -> c:\users\tolgoi\documents\visual studio 2015\Projects\MpiLab1-Problema2\Debug\MpiLab1-Problema2.exe
