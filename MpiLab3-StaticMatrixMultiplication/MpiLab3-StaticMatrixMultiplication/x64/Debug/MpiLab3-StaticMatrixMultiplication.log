@@ -1,0 +1,5 @@
+﻿  Source.cpp
+c:\users\tolgoi\documents\visual studio 2015\projects\mpilab3-staticmatrixmultiplication\mpilab3-staticmatrixmultiplication\source.cpp(39): warning C4101: 'status': unreferenced local variable
+c:\users\tolgoi\documents\visual studio 2015\projects\mpilab3-staticmatrixmultiplication\mpilab3-staticmatrixmultiplication\source.cpp(40): warning C4101: 'hostname': unreferenced local variable
+c:\users\tolgoi\documents\visual studio 2015\projects\mpilab3-staticmatrixmultiplication\mpilab3-staticmatrixmultiplication\source.cpp(14): warning C4101: 'k': unreferenced local variable
+  MpiLab3-StaticMatrixMultiplication.vcxproj -> c:\users\tolgoi\documents\visual studio 2015\Projects\MpiLab3-StaticMatrixMultiplication\x64\Debug\MpiLab3-StaticMatrixMultiplication.exe
