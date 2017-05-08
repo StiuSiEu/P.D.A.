@@ -1,0 +1,60 @@
+
+#include "kernel.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <cuda.h>
+#include <cutil.h>
+#include <cuda_runtime.h>
+
+// Device code
+__global__ void floyd(int search, int array_length, int *arr, int *ret_val )
+{
+    
+     for (i = threadIdx.x; i < 5; i = i + numprocs)
+		{
+			for (j = 0; j < 5; j++)
+			{
+				if (a[i][j] > a[i][k] + a[k][j])
+					
+					a[i][j] = a[i][k] + a[k][j];
+			}
+}
+}
+
+// Host code
+int main()
+{   int N = 5;
+    int i,j,k;
+   
+    
+    size_t size = N*N * sizeof(int);
+    
+    int* h_C = (int*)malloc(size);
+    int* h_A = (int*)malloc(size);
+    int h_A[N][N] = {
+      {  0,   2, 99, 10 ,99 },
+      {  2,   0,  3, 99 ,99 },
+      { 99,   3,  0,  1 , 8 },
+      { 10,  99,  1,  0 ,99 },
+      { 99,  99,  8, 99 , 0 }
+    };
+
+    int* d_A;
+    cudaMalloc(&d_A, size);
+    cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
+    
+    int* d_C;
+    cudaMalloc(&d_C, size);
+    cudaMemcpy(d_C, h_C, size, cudaMemcpyHostToDevice);
+    for (k = 0; k < N; k++)
+    {
+      floyd<<<16, 64>>>(k, N*N, d_A, d_C);
+    }
+
+    cudaMemcpy(h_result, d_result, sizeof(int), cudaMemcpyDeviceToHost);
+    printf("The element position is %d", d_result);
+
+   
+    cudaFree(d_A);
+    cudaFree(d_result);
+}
