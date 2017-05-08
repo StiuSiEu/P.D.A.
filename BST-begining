@@ -8,7 +8,7 @@
 // Device code
 __global__ void binary_search(int search, int array_length, int *arr, int *ret_val )
 {
-
+     int i = threadIdx.x;
 }
 
 // Host code
@@ -17,34 +17,31 @@ int main()
     int N = 4;
     int search=2;
     size_t size = N * sizeof(int);
-    int h_result;
+    
+    int h_result=0;
     int *d_result;
     cudaMalloc(&d_result,sizeof(int));
+    cudaMemcpy(d_result,h_result,sizeof(int),cudaMemcpyHostToDevice);
    
-    // Allocate input vector h_A host memory
+   
     int* h_A = (int*)malloc(size);
-
     for(int i=0;i<=N;i++)
     {
         h_A[i]=i+1;
     }
 
-    // Allocate vectors in device memory
     int* d_A;
     cudaMalloc(&d_A, size);
-    
-    // Copy vectors from host memory to device memory
     cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
   
-    // Invoke kernel
-    p_ary_search<<<16, 64>>>(search, array_length, dev_arr, d_result);
+    p_ary_search<<<16, 64>>>(search, N, d_A, d_result);
 
-    // Copy result from device memory to host memory
-    cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
 
-    // Free device memory
+    cudaMemcpy(h_result, d_result, sizeof(int), cudaMemcpyDeviceToHost);
+    printf("The element position is %d", d_result);
+
+   
     cudaFree(d_A);
-    cudaFree(d_B);
-    cudaFree(d_C);
+    cudaFree(d_result);
 }
 
