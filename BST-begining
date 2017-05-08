@@ -1,55 +1,50 @@
+#include "kernel.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <cuda.h>
+#include <cutil.h>
+#include <cuda_runtime.h>
+
 // Device code
-__global__ void VecAdd(float* A, float* B, float* C, int N)
+__global__ void binary_search(int search, int array_length, int *arr, int *ret_val )
 {
-    int i = blockDim.x * blockIdx.x + threadIdx.x;
-    if (i < N)
-        C[i] = A[i] + B[i];
+
 }
-            
+
 // Host code
 int main()
 {
-    int N = ...;
-    size_t size = N * sizeof(float);
+    int N = 4;
+    int search=2;
+    size_t size = N * sizeof(int);
+    int h_result;
+    int *d_result;
+    cudaMalloc(&d_result,sizeof(int));
+   
+    // Allocate input vector h_A host memory
+    int* h_A = (int*)malloc(size);
 
-    // Allocate input vectors h_A and h_B in host memory
-    float* h_A = (float*)malloc(size);
-    float* h_B = (float*)malloc(size);
-
-    // Initialize input vectors
-    ...
+    for(int i=0;i<=N;i++)
+    {
+        h_A[i]=i+1;
+    }
 
     // Allocate vectors in device memory
-    float* d_A;
+    int* d_A;
     cudaMalloc(&d_A, size);
-    float* d_B;
-    cudaMalloc(&d_B, size);
-    float* d_C;
-    cudaMalloc(&d_C, size);
-
+    
     // Copy vectors from host memory to device memory
     cudaMemcpy(d_A, h_A, size, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_B, h_B, size, cudaMemcpyHostToDevice);
-
+  
     // Invoke kernel
-    int threadsPerBlock = 256;
-    int blocksPerGrid =
-            (N + threadsPerBlock - 1) / threadsPerBlock;
-    VecAdd<<<blocksPerGrid, threadsPerBlock>>>(d_A, d_B, d_C, N);
+    p_ary_search<<<16, 64>>>(search, array_length, dev_arr, d_result);
 
     // Copy result from device memory to host memory
-    // h_C contains the result in host memory
     cudaMemcpy(h_C, d_C, size, cudaMemcpyDeviceToHost);
 
     // Free device memory
     cudaFree(d_A);
     cudaFree(d_B);
     cudaFree(d_C);
-            
-    // Free host memory
-    ...
 }
 
-
-Read more at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#ixzz4gScBAJiQ
-Follow us: @GPUComputing on Twitter | NVIDIA on Facebook
